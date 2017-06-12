@@ -1,0 +1,31 @@
+{
+  "name": "dreampark-web",
+  "version": "1.0.0",
+  "description": "react web application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Wang Chao",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {
+    "node-sass": "^4.5.3",
+    "webpack": "^2.6.1",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
+  }
+}
