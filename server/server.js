@@ -26,7 +26,8 @@ if (process.env.NODE_ENV === 'development' || __DEV__ ) {
 	  	inline: true,
 	  	publicPath: webpackConfig.output.publicPath,
 	  	headers: { 'Access-Control-Allow-Origin': '*' },
-	  	stats: { colors: true }
+	  	stats: { colors: true },
+	  	serverSideRender: true
 	}));
 	app.use(require('webpack-hot-middleware')(compiler, {
 		path: '/__webpack_hmr',

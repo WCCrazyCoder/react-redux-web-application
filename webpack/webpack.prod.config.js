@@ -35,6 +35,11 @@ const config = {
 			compress: { warnings: false },
 			comments: false
 		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			names: ['main', 'vendor', 'manifest'],
+			filename: '[name].[hash].min.js',
+			minChunks: Infinity
+		}),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production')

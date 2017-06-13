@@ -12,9 +12,11 @@ export default class Html extends React.Component {
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         </head>
         <body>
+          <h1>Hello</h1>
           <div id="app" />
-          <script src='dist/vendor.js' />
-          <script src='dist/main.js' />
+          <script src='dist/manifest.min.js' />
+          <script src='dist/vendor.min.js' />
+          <script src='dist/main.min.js' />
         </body>
       </html>
 		);
