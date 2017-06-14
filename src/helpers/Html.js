@@ -14,9 +14,10 @@ export default class Html extends React.Component {
         <body>
           <h1>Hello</h1>
           <div id="app" />
-          <script src='dist/manifest.min.js' />
-          <script src='dist/vendor.min.js' />
-          <script src='dist/main.min.js' />
+          <script src='/dist/manifest.min.js' />
+          <script src='/dist/reactLibrary.min.js' />
+          <script src='/dist/vendor.min.js' />
+          <script src='/dist/main.min.js' />
         </body>
       </html>
 		);

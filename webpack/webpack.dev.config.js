@@ -6,7 +6,7 @@ const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 
 const config = {
-	devtool: 'source-map',
+	devtool: 'inline-source-map',
 	context: projectRootPath,
 	entry: {
 		main: [
@@ -14,11 +14,14 @@ const config = {
 			'webpack/hot/only-dev-server',
 			'./src/client.js'
 		],
-		vendor: [
+		reactLibrary: [
 			'react',
 			'react-dom',
 			'redux',
 			'react-redux',
+			'react-router-dom'
+		],
+		vendor: [
 			'superagent'
 		]
 	},
@@ -35,11 +38,18 @@ const config = {
 			loader: 'babel-loader'
 		}]
 	},
+	resolve: {
+		extensions: ['.js', '.jsx', 'json', 'css', 'scss', 'png', 'jpg', 'jpeg'],
+		alias: {
+			'react': path.resolve(__dirname, '../node_modules/react'),
+			'react-dom': path.resolve(__dirname, '../node_modules/react-dom')
+		},
+	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.optimize.CommonsChunkPlugin({
-			names: ['main', 'vendor', 'manifest'],
-			filename: '[name].min.js',
+			name: ['main', 'reactLibrary', 'vendor', 'manifest'],
+			// filename: '[name].[hash].min.js',
 			minChunks: Infinity
 		}),
 		new webpack.DefinePlugin({
@@ -50,7 +60,7 @@ const config = {
 			__SERVER__: false,
 			__DEV__: true,
 			__PROD__: true,
-			__DEVTOOLS__: false
+			__DEVTOOLS__: true
 		})
 	]
 };

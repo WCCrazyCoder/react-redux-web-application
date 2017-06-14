@@ -9,18 +9,21 @@ const config = {
 		main: [
 			'./src/client.js'
 		],
-		vendor: [
+		reactLibrary: [
 			'react',
 			'react-dom',
 			'redux',
 			'react-redux',
+			'react-router-dom'
+		],
+		vendor: [
 			'superagent'
 		]
 	},
 	output: {
 		path: path.resolve(projectRootPath, 'dist'),
-		filename: '[name].js',
-		chunkFilename: '[name].js',
+		filename: '[name].[hash].min.js',
+		chunkFilename: '[name].[hash].min.js',
 		publicPath: '/dist/'
 	},
 	module: {
@@ -30,14 +33,21 @@ const config = {
 			loader: 'babel-loader'
 		}]
 	},
+	resolve: {
+		extensions: ['.js', '.jsx', 'json', 'css', 'scss', 'png', 'jpg', 'jpeg'],
+		alias: {
+			'react': path.resolve(__dirname, '../node_modules/react/dist/react.min.js'),
+			'react-dom': path.resolve(__dirname, '../node_modules/react-dom/dist/react-dom.min.js')
+		}
+	},
 	plugins: [
 		new webpack.optimize.UglifyJsPlugin({
 			compress: { warnings: false },
 			comments: false
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
-			names: ['main', 'vendor', 'manifest'],
-			filename: '[name].[hash].min.js',
+			name: ['main', 'reactLibrary', 'vendor', 'manifest'],
+			// filename: '[name].[hash].min.js',
 			minChunks: Infinity
 		}),
 		new webpack.DefinePlugin({
@@ -45,6 +55,7 @@ const config = {
 				NODE_ENV: JSON.stringify('production')
 			},
 			__CLIENT__: true,
+			__SERVER__: false,
 			__DEV__: false,
 			__PROD__: true,
 			__DEVTOOLS: false

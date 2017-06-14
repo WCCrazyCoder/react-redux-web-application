@@ -1,18 +1,31 @@
-// import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createBrowserHistory } from 'history';
+import { syncHistoryWithStore } from 'react-router-redux';
+
+import createStore from './redux/createStore';
+import routes from './routes';
+import App from './containers/App/App';
+
+const browserHistory = createBrowserHistory();
+const store = createStore(browserHistory, {}, window.__redux_data__);
+const history = syncHistoryWithStore(browserHistory, store);
 
 const component = (
-	<div>
-		<h1>Hello React</h1>
-	</div>
+	<Provider store={store} key="provider">
+		<Router history={history}>
+			{ routes(store) }
+		</Router>
+	</Provider>
 );
-
+	
 ReactDOM.render(
 	component,
 	document.getElementById("app")
 );
 
-
-if (module.hot) {
+if (__DEV__ && module.hot) {
 	module.hot.accept();
 }
