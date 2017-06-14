@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import NotFound from './container/NotFound';
 
-export const NotFoundContainer = ({ store, ...rest }) => {
+export const NotFoundRoute = ({ store, ...rest }) => {
 	return (
 		<Route {...rest} render={(props) => {
 			return (
@@ -12,4 +12,4 @@ export const NotFoundContainer = ({ store, ...rest }) => {
 	)
 }
 
-export default NotFoundContainer;
+export default NotFoundRoute;

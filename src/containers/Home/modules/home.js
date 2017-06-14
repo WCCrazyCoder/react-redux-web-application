@@ -3,7 +3,7 @@ const HOMEPAGE = 'home/HOMEPAGE';
 export function changeUsername() {
 	return {
 		type: HOMEPAGE,
-		payload: { name: 'dreampark' }
+		payload: { name: Math.random() }
 	}
 }
 

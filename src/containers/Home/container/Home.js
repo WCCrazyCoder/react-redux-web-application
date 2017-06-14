@@ -12,7 +12,7 @@ import { changeUsername } from '../modules/home';
 
 export default class Home extends React.Component {
 	render() {
-		console.log(this.props.name);
+		// console.log(this.props.name);
 		console.log(this.props);
 		return (
 			<div>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import About from './container/About';
+import reducer from './modules/about';
 
-export const AboutContainer = ({ store, ...rest}) => {
+export const AboutRoute = ({ store, injectReducer, ...rest}) => {
 	return (
 		<Route {...rest} render={(props) => {
-			console.log(store);
-			// injectReducer(store, { key: 'home', reducer });
+			if (store && typeof injectReducer === 'function') injectReducer(store, { key: 'about', reducer });
 			return (
 				<About {...props} />
 			)
@@ -14,4 +14,4 @@ export const AboutContainer = ({ store, ...rest}) => {
 	)
 }
 
-export default AboutContainer;
+export default AboutRoute;
