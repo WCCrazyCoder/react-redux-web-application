@@ -39,11 +39,7 @@ const config = {
 			exclude: /node_modules/,
 			loader: 'babel-loader'
 		}, {
-			test: /\.css$/,
-			exclude: /node_modules/,
-			use: [{ loader: 'style-loader'}, { loader: 'css-loader'}]
-		}, {
-			test: /\.scss$/,
+			test: /\.(css|scss)$/,
 			exclude: /node_modules/,
 			use: [
 					{ loader: 'style-loader' }, 
@@ -57,7 +53,7 @@ const config = {
 		}]
 	},
 	resolve: {
-		extensions: ['.js', '.jsx', 'json', 'css', 'scss', 'png', 'jpg', 'jpeg'],
+		extensions: ['.js', '.jsx', 'json', '.css', '.scss', 'png', 'jpg', 'jpeg'],
 		alias: {
 			'react': path.resolve(__dirname, '../node_modules/react'),
 			'react-dom': path.resolve(__dirname, '../node_modules/react-dom')
@@ -72,12 +68,12 @@ const config = {
 		}),
 		new webpack.DefinePlugin({
 			'process.env': {
-				NODE_ENV: JSON.stringify('production')
+				NODE_ENV: JSON.stringify('development')
 			},
 			__CLIENT__: true,
 			__SERVER__: false,
 			__DEV__: true,
-			__PROD__: true,
+			__PROD__: false,
 			__DEVTOOLS__: true
 		})
 	]

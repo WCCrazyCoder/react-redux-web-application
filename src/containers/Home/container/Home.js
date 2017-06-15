@@ -2,7 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { increment, decrement, getHomepageJSON } from '../modules/home';
-import styles from './Home.scss';
 
 @connect(
 	state => ({
@@ -30,7 +29,7 @@ export default class Home extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
+		const styles = require('./Home.scss');
 		return (
 			<div className={styles.home}>
 				<button id='increment' onClick={this.handleClick}>increment</button>

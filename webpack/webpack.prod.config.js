@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const projectRootPath = path.resolve(__dirname, '..');
 const config = {
@@ -38,13 +39,15 @@ const config = {
 			exclude: /node_modules/,
 			use: [{ loader: 'style-loader'}, { loader: 'css-loader'}]
 		}, {
-			test: /\.scss$/,
+			test: /\.(css|scss)$/,
 			exclude: /node_modules/,
-			use: [
-					{ loader: 'style-loader' }, 
-					{ loader: 'css-loader?modules&camelCase&importLoaders=2&sourceMap&localIdentName=[name]__[local]__[hash:base64:5]' }, 
+			use: ExtractTextPlugin.extract({
+				fallback: 'style-loader',
+				use: [
+					{ loader: 'css-loader?modules&camelCase&importLoaders=1&sourceMap&localIdentName=[name]__[local]__[hash:base64:5]' }, 
 					{ loader: 'sass-loader', options: { sourceMap: true } }
 				]
+			})
 		}, {
 			test: /\.(png|jpg|gif)$/,
 			exclude: /node_modules/,
@@ -59,6 +62,7 @@ const config = {
 		}
 	},
 	plugins: [
+		new ExtractTextPlugin('[name].[hash].min.css'),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: { warnings: false },
 			comments: false
