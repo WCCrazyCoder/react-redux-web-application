@@ -6,12 +6,14 @@ import { createBrowserHistory } from 'history';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import createStore from './redux/createStore';
+import APIClient from './helpers/APIClient';
 import routes from './routes';
 import App from './containers/App';
 import Home from './containers/Home/container/Home';
 
 const browserHistory = createBrowserHistory();
-const store = createStore(browserHistory, {}, window.__redux_data__);
+const client = new APIClient();
+const store = createStore(browserHistory, client, window.__redux_data__);
 const history = syncHistoryWithStore(browserHistory, store);
 
 const component = (

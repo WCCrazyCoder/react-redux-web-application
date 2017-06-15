@@ -1,18 +1,41 @@
-const HOMEPAGE = 'home/HOMEPAGE';
+import superagent from 'superagent';
 
-export function changeUsername() {
+const INCREMENT = 'home/INCREMENT';
+const DECREMENT = 'home/DECREMENT';
+
+const HOMEPAGE = 'home/HOMEPAGE';
+const HOMEPAGE_FULFILLED = 'home/HOMEPAGE_FULFILLED';
+
+export function increment() {
 	return {
-		type: HOMEPAGE,
-		payload: { name: Math.random() }
+		type: INCREMENT
+	};
+}
+
+export function decrement() {
+	return {
+		type: DECREMENT
+	};
+}
+
+export function getHomepageJSON() {
+	return (dispatch, getState) => {
+		dispatch({
+			type: HOMEPAGE,
+			payload: (client) => client.get('web/homepage')
+		}); 
 	}
 }
 
 const ACTION_HANDLERS = {
-	[HOMEPAGE]		: (state, action) => ({ ...state, name: action.payload.name })
+	[INCREMENT]				: (state, action) => ({ ...state, counter: state.counter + 1 }),
+	[DECREMENT]				: (state, action) => ({ ...state, counter: state.counter - 1 }),
+	[HOMEPAGE_FULFILLED]	: (state, action) => ({ ...state, homepageJSON: action.payload })
 };
 
 const initialState = {
-	name: 'wang'
+	counter: 100,
+	homepageJSON: null
 };
 
 export default function home(state=initialState, action) {

@@ -18,8 +18,10 @@ const config = {
 			'react',
 			'react-dom',
 			'redux',
+			'redux-thunk',
 			'react-redux',
-			'react-router-dom'
+			'react-router-dom',
+			'react-router-redux'
 		],
 		vendor: [
 			'superagent'
@@ -36,6 +38,22 @@ const config = {
 			test: /\.(js|jsx)$/,
 			exclude: /node_modules/,
 			loader: 'babel-loader'
+		}, {
+			test: /\.css$/,
+			exclude: /node_modules/,
+			use: [{ loader: 'style-loader'}, { loader: 'css-loader'}]
+		}, {
+			test: /\.scss$/,
+			exclude: /node_modules/,
+			use: [
+					{ loader: 'style-loader' }, 
+					{ loader: 'css-loader?modules&camelCase&importLoaders=2&sourceMap&localIdentName=[name]__[local]__[hash:base64:5]' }, 
+					{ loader: 'sass-loader', options: { sourceMap: true } }
+				]
+		}, {
+			test: /\.(png|jpg|gif)$/,
+			exclude: /node_modules/,
+			use: [{ loader: 'url-loader', options: { limit: 8192 }}]
 		}]
 	},
 	resolve: {

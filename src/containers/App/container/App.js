@@ -7,7 +7,7 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<div>
-					<h1>Hello React sdf</h1>
+					<h1>Hello React</h1>
 				</div>
 				<div>
 					{ this.props.children }
