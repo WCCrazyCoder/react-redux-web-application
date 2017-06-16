@@ -5,6 +5,7 @@ var compression = require('compression');
 var favicon = require('serve-favicon');
 var webpack = require('webpack');
 var webpackConfig = require('../webpack/webpack.config.js');
+var userRouter = require('./serverRouters/userRouter');
 
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
@@ -36,9 +37,7 @@ if (process.env.NODE_ENV === 'development' || __DEV__ ) {
 	}));
 }
 
-/**
- *	express middleware
- */
+app.use('/api/user', userRouter);
 
 app.use('*', (req, res, next) => {
 	if (__DEV__ || process.env.NODE_ENV === 'development') {

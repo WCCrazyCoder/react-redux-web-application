@@ -22,7 +22,7 @@ export function getHomepageJSON() {
 	return (dispatch, getState) => {
 		dispatch({
 			type: HOMEPAGE,
-			payload: (client) => client.get('web/homepage')
+			payload: (client) => client.get('http://localhost:3000/api/user')
 		}); 
 	}
 }
