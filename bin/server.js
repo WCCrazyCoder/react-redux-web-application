@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require('babel-register');
-
+// require.extensions['.scss'] = function () {}
 
 global.__CLIENT__ = false;
 global.__SERVER__ = true;

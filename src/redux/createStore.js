@@ -5,18 +5,16 @@ import clientMiddleware from './reduxMiddleware/clientMiddleware';
 import logger from 'redux-logger';
 import { makeRootReducer } from './reducers';
 
-export const createStore = (history, client, preloadedState) => {
+export const createStore = (history, client) => {
 	let store = {};
 	if (__DEV__ && __CLIENT__) {
 		store = createReduxStore(
 			makeRootReducer(),
-			preloadedState,
 			applyMiddleware(clientMiddleware(client), thunk, promise(), logger)
 		);
 	} else {
 		store = createReduxStore(
 			makeRootReducer(),
-			preloadedState,
 			applyMiddleware(clientMiddleware(client), thunk, promise())
 		);
 	}

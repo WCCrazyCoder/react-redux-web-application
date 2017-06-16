@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const projectRootPath = path.resolve(__dirname, '..');
 const HOST = process.env.HOST || 'localhost';
@@ -31,15 +32,22 @@ const config = {
 		path: path.resolve(projectRootPath, 'dist'),
 		filename: '[name].min.js',
 		chunkFilename: '[name].min.js',
-		publicPath: `http://${HOST}:${PORT}/dist/`
+		publicPath: `http://${HOST}:${PORT}/`
 	},
 	module: {
 		rules: [{
 			test: /\.(js|jsx)$/,
 			exclude: /node_modules/,
 			loader: 'babel-loader'
+		},{
+			test: /\.css$/,
+			exclude: /node_modules/,
+			use: [
+					{ loader: 'style-loader' }, 
+					{ loader: 'css-loader?modules&camelCase&importLoaders=2&sourceMap&localIdentName=[name]__[local]__[hash:base64:5]' }
+				]
 		}, {
-			test: /\.(css|scss)$/,
+			test: /\.scss$/,
 			exclude: /node_modules/,
 			use: [
 					{ loader: 'style-loader' }, 
@@ -53,7 +61,7 @@ const config = {
 		}]
 	},
 	resolve: {
-		extensions: ['.js', '.jsx', 'json', '.css', '.scss', 'png', 'jpg', 'jpeg'],
+		extensions: ['.js', '.jsx', 'json'],
 		alias: {
 			'react': path.resolve(__dirname, '../node_modules/react'),
 			'react-dom': path.resolve(__dirname, '../node_modules/react-dom')
@@ -61,6 +69,10 @@ const config = {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: 'src/index.html'
+		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: ['main', 'reactLibrary', 'vendor', 'manifest'],
 			// filename: '[name].[hash].min.js',

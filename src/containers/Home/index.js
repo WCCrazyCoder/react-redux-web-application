@@ -7,9 +7,7 @@ export const HomeRoute = ({ store, injectReducer, ...rest }) => {
 	return (
 		<Route {...rest} render={(props) => {
 			if (store && typeof injectReducer === 'function') injectReducer(store, { key: 'home', reducer });
-			return (
-				<Home {...props} />
-			)
+			return <Home {...props} />
 		}} />
 	)
 }

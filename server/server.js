@@ -1,23 +1,24 @@
 var Express = require('express');
-// var path = require('path');
-import path from 'path';
+var path = require('path');
+var fs = require('fs');
 var compression = require('compression');
 var favicon = require('serve-favicon');
 var webpack = require('webpack');
 var webpackConfig = require('../webpack/webpack.config.js');
-var serverRouteMiddleware = require('./middleware/serverRouteMiddleware');
 
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
+const compiler = webpack(webpackConfig);
 
 var app = new Express();
-app.use(favicon(path.resolve(__dirname, '../assets/favicon.ico')));
-app.use(Express.static(path.resolve(__dirname, '../assets')));
 app.use(compression());
+app.use(favicon(path.resolve(__dirname, '../assets/favicon.ico')));
+
+app.use(Express.static(path.resolve(__dirname, '../assets')));
+app.use(Express.static(path.resolve(__dirname, '../dist')));
 
 if (process.env.NODE_ENV === 'development' || __DEV__ ) {
 	app.use(require('morgan')('tiny'));
-	const compiler = webpack(webpackConfig);
 	app.use(require('webpack-dev-middleware')(compiler, {
 		quiet: true,
 	  	noInfo: true,
@@ -38,7 +39,26 @@ if (process.env.NODE_ENV === 'development' || __DEV__ ) {
 /**
  *	express middleware
  */
- app.use(serverRouteMiddleware());
+
+app.use('*', (req, res, next) => {
+	if (__DEV__ || process.env.NODE_ENV === 'development') {
+		const filename = path.join(compiler.outputPath, 'index.html');
+		compiler.outputFileSystem.readFile(filename, (err, result) => {
+	        if (err) return next(err);
+	    	res.set('content-type', 'text/html');
+	    	res.send(result);
+	    	res.end();
+		});
+	} else {
+		const filename = path.resolve(__dirname, '../dist/index.html');
+		fs.readFile(filename, (err, result) => {
+			if (err) return next(err);
+			res.set('Content-type', 'text/html');
+			res.send(result);
+			res.end();
+		});
+	}
+});
 
  app.listen(PORT, function(error) {
  	if (error) {

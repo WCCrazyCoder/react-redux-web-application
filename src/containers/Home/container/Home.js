@@ -21,6 +21,7 @@ export default class Home extends React.Component {
 		e.preventDefault();
 		if (e.target.id === 'increment') {
 			this.props.increment();
+			this.props.history.push('/about');
 		} else if (e.target.id === 'decrement') {
 			this.props.decrement();
 		} else if (e.target.id === 'homepage') {
@@ -29,7 +30,7 @@ export default class Home extends React.Component {
 	}
 
 	render() {
-		const styles = require('./Home.scss');
+		const styles = require('./Home.scss');	
 		return (
 			<div className={styles.home}>
 				<button id='increment' onClick={this.handleClick}>increment</button>

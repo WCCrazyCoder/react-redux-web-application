@@ -9,11 +9,10 @@ import createStore from './redux/createStore';
 import APIClient from './helpers/APIClient';
 import routes from './routes';
 import App from './containers/App';
-import Home from './containers/Home/container/Home';
 
 const browserHistory = createBrowserHistory();
 const client = new APIClient();
-const store = createStore(browserHistory, client, window.__redux_data__);
+const store = createStore(browserHistory, client);
 const history = syncHistoryWithStore(browserHistory, store);
 
 const component = (

@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const projectRootPath = path.resolve(__dirname, '..');
@@ -16,6 +17,7 @@ const config = {
 			'react-redux',
 			'redux',
 			'redux-thunk',
+			'react-router',
 			'react-router-dom',
 			'react-router-redux'
 		],
@@ -27,7 +29,7 @@ const config = {
 		path: path.resolve(projectRootPath, 'dist'),
 		filename: '[name].[hash].min.js',
 		chunkFilename: '[name].[hash].min.js',
-		publicPath: '/dist/'
+		publicPath: '/'
 	},
 	module: {
 		rules: [{
@@ -62,6 +64,14 @@ const config = {
 		}
 	},
 	plugins: [
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: 'src/index.html',
+		    inject: true,
+			minify: {
+				collapseWhitespace: true,
+			 }
+		}),
 		new ExtractTextPlugin('[name].[hash].min.css'),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: { warnings: false },
