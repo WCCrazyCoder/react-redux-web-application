@@ -1,2 +1,2 @@
-# react-web-applicaiton
-react web application
+# react-redux-web-applicaiton
+react redux web application
