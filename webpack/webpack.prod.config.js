@@ -90,7 +90,7 @@ const config = {
 			__SERVER__: false,
 			__DEV__: false,
 			__PROD__: true,
-			__DEVTOOLS: false
+			__DEVTOOLS__: false
 		})
 	]
 };

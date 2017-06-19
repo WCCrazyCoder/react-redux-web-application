@@ -1,0 +1,51 @@
+.about {
+	
+}
+
+.verified {
+	position: relative;
+	width: 100%;
+	height: 25%;
+	min-height: 200px;
+	&>h2 {
+		position: absolute;
+		margin: auto;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+
+		height: 44px;
+		line-height: 44px;
+		text-align: center;
+		background-color: rgb(62, 183, 66);
+		color: white;
+	}
+}
+
+$avatarSize: 44px;
+.wechat {
+	position: relative;
+	text-align: center;
+	&>img{
+		display: inline-block;
+		width: $avatarSize;
+		height: $avatarSize;
+		border-radius: $avatarSize/2;
+	}
+	&>div{
+		display: inline-block;
+		font-size: 13px;
+		font-weight: 600;
+	}
+}
+
+.userinfo {
+	position: relative;
+	margin-top: 20px;
+	text-align: center;
+	&>div {
+		width: 30%;
+		margin-top: 5px;
+	}
+}

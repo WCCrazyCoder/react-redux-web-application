@@ -27,40 +27,60 @@ router.get('/idcard', (req, res) => {
 	connection.end();
 })
 
-router.get('/', (req, res) => {
+router.get('/delete', (req, res) => {
 	var connection = getMySqlConnection();
-	connection.connect();
-	const values = [];
-	Object.keys(req.query).forEach(key => values.push(mysql.escape(req.query[key])));
-	const sql = `select * from user where ${Object.keys(req.query).join(',')} = ${ values }`;
-	console.log(sql);
-	connection.query(sql, function (error, results, fields) {
-	  	if (error) {
-	  		console.log(error);
-	  		return res.send({code: 10002, message: '查询数据出错'});
-	  	}
-	  	if (results.length === 0) {
-	  		return res.json({code: 10004, message: '查询的用户不存在'});
-	  	}
-	  	res.json(results[0]);
+	const sql = `delete from user`;
+	connection.query(sql, function(error, results, fileds) {
+		if (error) {
+			console.log(error);
+		}
+		res.send({code: '10000', message: 'success'});
 	});
 	connection.end();
 });
 
-router.post('/', (req, res) => {
+/**
+ *	根据字段名查询用户信息
+ */
+router.get('/userinfo', (req, res) => {
+	var connection = getMySqlConnection();
+	connection.connect();
+
+	const values = [];
+	Object.keys(req.query).forEach(key => values.push(mysql.escape(req.query[key])));
+	const sql = `select * from user where ${Object.keys(req.query).join(',')} = ${ values }`;
+	connection.query(sql, function (error, results, fields) {
+	  	if (error) {
+	  		console.log(error);
+	  		connection.end();
+	  		return res.send({code: 10002, message: '查询数据出错'});
+	  	}
+	  	if (results.length === 0) {
+	  		connection.end();
+	  		return res.json({code: 10004, message: '查询的用户不存在'});
+	  	}
+	  	res.json({code: 10000, message: 'success', data: results[0]});
+	  	connection.end();
+	});
+});
+
+/**
+ *	注册用户信息
+ */
+router.post('/register', (req, res) => {
 	var connection = getMySqlConnection();
 	connection.connect();
 	const querySql = `select * from user where cardno = ${mysql.escape(req.body.cardno)}`;
 	connection.query(querySql, function(error, results, fileds) {
 		if (error) {
 			console.log(error);
+			connection.end();
 			return res.send({code: 10002, message: '查询数据出错'});
 		}
 		if (results.length > 0) {
-			console.log(111);
+			connection.end();
 			return res.json({code: 10000, message: '用户已存在', data: results[0]})
 		};
-
 		// 插入用户数据
 		const values = [];
 		Object.keys(req.body).forEach(key => values.push(mysql.escape(req.body[key])));
@@ -68,21 +88,20 @@ router.post('/', (req, res) => {
 		connection.query(sql, function(error, results, fileds) {
 			if (error) {
 				console.log(error);
+				connection.end();
 				return res.send({code: 10003, message: '插入数据出错'});
 			}
+			res.send({code: 10000, message: 'success', data: Object.assign({id: results.insertId}, req.body)});
 		});
-
-
 		connection.end();
 	});
-	console.log(222);
 });
 
 const getMySqlConnection = () => {
 	var connection = mysql.createConnection({
 	 	host     : 'localhost',
 	 	user     : 'root',
-	 	password : 'wangchao',
+	 	password : 'wangchao1991',
 	 	database : 'user',
 	 	charset  : 'utf8'
 	});
@@ -99,20 +118,6 @@ const createPool = () => {
 		charset  : 'utf8'
 	});
 	return connection;
-}
-
-function getUserInfo(connection, cardno, callback) {
-	const querySql = `select * from user where cardno = ${ mysql.escape(cardno) }`;
-	connection.query(querySql, function(error, results, fileds) {
-		if (error) {
-			console.log(error);
-			return res.send({code: 10002, message: '查询数据出错'});				
-		}
-		if (results.length > 0) {
-			res.json({code: 10000, message: '成功', data: results[0]});
-		}
-		res.json({code: 10004, message: '查询的用户不存在'});
-	});	
 }
 
 export default router;

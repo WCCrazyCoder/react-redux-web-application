@@ -31,7 +31,6 @@ export default class Home extends React.Component {
 
 	_handleOkButtonClick(e) {
 		e.preventDefault();
-		console.log(this.state);
 		if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.state.idcard)) {
 			window.alert('请输入正确身份证号码'); return;
 		}
@@ -52,7 +51,7 @@ export default class Home extends React.Component {
 		return (
 			<div className={styles.home}>
 				<div className={styles.tip}>
-					<h4>请填入身份信息</h4>
+					<h4>请输入身份信息</h4>
 				</div>
 				<div className={styles.container}>
 					<div className={styles.flexItem}>
@@ -64,9 +63,10 @@ export default class Home extends React.Component {
 						<input defaultValue="421083199109165310" id="idcard" className={styles.customInput} onChange={this.onChange} type="number" placeholder="身份证号码" />
 					</div>
 					<div className={styles.okButton}>
-						<button onClick={this.handleOkButtonClick}>{buttonMessage}</button>
+						<button disabled={this.state.loading} onClick={this.handleOkButtonClick}>{buttonMessage}</button>
 					</div>
 				</div>
+				<div>{JSON.stringify(this.state)}</div>
 			</div>
 		);
 	}
