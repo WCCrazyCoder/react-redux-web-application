@@ -41,10 +41,10 @@ const config = {
 			loader: 'babel-loader'
 		},{
 			test: /\.css$/,
-			exclude: /node_modules/,
 			use: [
 					{ loader: 'style-loader' }, 
-					{ loader: 'css-loader?modules&camelCase&importLoaders=2&sourceMap&localIdentName=[name]__[local]__[hash:base64:5]' }
+					{ loader: 'css-loader?modules&camelCase&importLoaders=2&sourceMap&localIdentName=[name]__[local]__[hash:base64:5]' },
+					{ loader: 'postcss-loader' }
 				]
 		}, {
 			test: /\.scss$/,
@@ -52,10 +52,17 @@ const config = {
 			use: [
 					{ loader: 'style-loader' }, 
 					{ loader: 'css-loader?modules&camelCase&importLoaders=2&sourceMap&localIdentName=[name]__[local]__[hash:base64:5]' }, 
-					{ loader: 'sass-loader', options: { sourceMap: true } }
+					{ loader: 'sass-loader', options: { sourceMap: true } },
 				]
+		},{
+			test: /\.less$/,
+			use: [
+				{ loader: 'style-loader' }, 
+				{ loader: 'css-loader?modules&camelCase&importLoaders=2&sourceMap&localIdentName=[name]__[local]__[hash:base64:5]' },
+				{ loader: 'less-loader' }
+			]
 		}, {
-			test: /\.(png|jpg|gif)$/,
+			test: /\.(png|jpg|gif|svg)$/,
 			exclude: /node_modules/,
 			use: [{ loader: 'url-loader', options: { limit: 8192 }}]
 		}]

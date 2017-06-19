@@ -18,6 +18,14 @@ app.use(favicon(path.resolve(__dirname, '../assets/favicon.ico')));
 app.use(Express.static(path.resolve(__dirname, '../assets')));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
 
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	// res.setHeader('Access-Control-Allow-Credentials', true);
+	next();
+});
+
 if (process.env.NODE_ENV === 'development' || __DEV__ ) {
 	app.use(require('morgan')('tiny'));
 	app.use(require('webpack-dev-middleware')(compiler, {

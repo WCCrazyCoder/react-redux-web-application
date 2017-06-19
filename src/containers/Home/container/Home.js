@@ -1,45 +1,72 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { increment, decrement, getHomepageJSON } from '../modules/home';
+import { register, getHomepageJSON } from '../modules/home';
 
 @connect(
 	state => ({
-		counter: state.home.counter,
-		homepageJSON: state.home.homepageJSON
+		loading: state.home.loading,
+		user: state.home.user
 	}),
-	dispatch => bindActionCreators({ increment, decrement, getHomepageJSON }, dispatch)
+	dispatch => bindActionCreators({ register, getHomepageJSON }, dispatch)
 )
 
 export default class Home extends React.Component {
 	constructor(props) {
 		super(props);
-		this.handleClick = (e) => this._handleClick(e);
+		this.handleOkButtonClick = (e) => this._handleOkButtonClick(e);
+		this.onChange = (e) => this._onChange(e);
+		this.state = {
+			username: '',
+			idcard: ''
+		};
 	}
 
-	_handleClick(e) {
+	_onChange(e) {
 		e.preventDefault();
-		if (e.target.id === 'increment') {
-			this.props.increment();
+		this.setState({
+			[e.target.id]: e.target.value
+		});	
+	}
+
+	_handleOkButtonClick(e) {
+		e.preventDefault();
+		console.log(this.state);
+		if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.state.idcard)) {
+			window.alert('请输入正确身份证号码'); return;
+		}
+		if(this.state.username.length > 0 && this.state.idcard.length > 0) {
+			this.props.register(this.state.username, this.state.idcard);
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.user !== this.props.user) {
 			this.props.history.push('/about');
-		} else if (e.target.id === 'decrement') {
-			this.props.decrement();
-		} else if (e.target.id === 'homepage') {
-			this.props.getHomepageJSON();
 		}
 	}
 
 	render() {
-		const styles = require('./Home.scss');	
+		const styles = require('./Home.scss');
+		const buttonMessage = this.props.loading ? '发送中...' : '确定';
 		return (
 			<div className={styles.home}>
-				<button id='increment' onClick={this.handleClick}>increment</button>
-				<span><strong>{this.props.counter}</strong></span>
-				<button id='decrement' onClick={this.handleClick}>decrement</button><br />
-				<button id='homepage' onClick={this.handleClick}>load home page data</button>
-				<div>{JSON.stringify(this.props.homepageJSON)}</div>
-				<h2>Welcome to homepage ...</h2>
-				<h4>{this.props.name}</h4>
+				<div className={styles.tip}>
+					<h4>请填入身份信息</h4>
+				</div>
+				<div className={styles.container}>
+					<div className={styles.flexItem}>
+						<label className={styles.customLabel + ' ' + styles.usernameLabel} htmlFor="username">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>							
+						<input defaultValue="王超" id="username" className={styles.customInput} onChange={this.onChange} placeholder="姓名" />
+					</div>
+					<div className={styles.flexItem}>
+						<label className={styles.customLabel} htmlFor="idcard">身份证号码: </label>
+						<input defaultValue="421083199109165310" id="idcard" className={styles.customInput} onChange={this.onChange} type="number" placeholder="身份证号码" />
+					</div>
+					<div className={styles.okButton}>
+						<button onClick={this.handleOkButtonClick}>{buttonMessage}</button>
+					</div>
+				</div>
 			</div>
 		);
 	}
