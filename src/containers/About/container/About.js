@@ -17,6 +17,7 @@ export default class About extends React.Component {
 		if (this.props.user) {
 			content = (
 				<div>
+					<div className={styles.cover} />
 					<div className={styles.verified}>
 						<h2>已认证</h2>
 					</div>

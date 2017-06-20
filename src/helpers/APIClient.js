@@ -2,7 +2,7 @@ import superagent from 'superagent';
 import projectConfig from '../../project.config';
 
 function formatUrl(path) {
-	if (/^https?:\/\//.test(path)) return path;
+	if (/^(http|https):\/\//.test(path)) return path;
 	const adjustedPath = path[0] !== '/' ? '/' + path : path;
 	 let baseUrl = projectConfig.baseUrl;
 	 if (process.env.NODE_ENV === 'development' || __DEV__) baseUrl = projectConfig.devBaseUrl;
@@ -24,8 +24,16 @@ export default class APIClient {
 						request.set(key, headers[key]);
 					});
 				}
-				request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body));
+				// request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body));
+				request.end((err, { body } = {}) => {
+					if (err || (Object.prototype.hasOwnProperty.call(body, 'code') && body.code > 10000)) {
+						reject(body || err);
+					} else {
+						resolve(body);
+					}
+				});
 			});
 		});
 	}
+	empty() {}
 }

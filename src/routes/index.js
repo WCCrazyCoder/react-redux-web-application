@@ -4,6 +4,7 @@ import { Switch } from 'react-router-dom';
 import { injectReducer } from '../redux/reducers';
 import HomeRoute from '../containers/Home';
 import AbouteRoute from '../containers/About';
+import WeChatLoginRoute from '../containers/WeChatLogin';
 import NotFoundRoute from '../containers/NotFound';
 
 const routes = (store) => {
@@ -11,7 +12,7 @@ const routes = (store) => {
 		<Switch>
 			<HomeRoute exact path="/" store={store} injectReducer={injectReducer} />
 			<AbouteRoute exact path="/about" />
-			<AbouteRoute exact path="/about/:user" />
+			<WeChatLoginRoute exact path="/authorization" />
 			<NotFoundRoute />
 		</Switch>
 	)

@@ -1,14 +1,15 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { register, getHomepageJSON } from '../modules/home';
+import { register, getUserInfo, getWeChatUserInfo } from '../modules/home';
 
 @connect(
 	state => ({
-		loading: state.home.loading,
-		user: state.home.user
+		registerLoading: state.home.registerLoading,
+		user: state.home.user,
+		weChatInfo: state.home.weChatInfo
 	}),
-	dispatch => bindActionCreators({ register, getHomepageJSON }, dispatch)
+	dispatch => bindActionCreators({ register, getUserInfo, getWeChatUserInfo }, dispatch)
 )
 
 export default class Home extends React.Component {
@@ -39,34 +40,43 @@ export default class Home extends React.Component {
 		}
 	}
 
+	componentWillMount() {
+		const getQueryValueOf = key => decodeURIComponent(this.props.location.search.replace(new RegExp('^(?:.*[&\\?]' + escape(key).replace(/[.+*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'))
+		const code = getQueryValueOf('code');
+		if (code) {
+			this.props.getWeChatUserInfo(code);
+		}
+	}
+
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.user !== this.props.user) {
 			this.props.history.push('/about');
+		} else if (nextProps.weChatInfo !== this.props.weChatInfo) {
+			this.props.getUserInfo({ openid: nextProps.weChatInfo.openid });
 		}
 	}
 
 	render() {
 		const styles = require('./Home.scss');
-		const buttonMessage = this.props.loading ? '发送中...' : '确定';
+		const buttonMessage = this.props.registerLoading ? '发送中...' : '确定';
 		return (
 			<div className={styles.home}>
 				<div className={styles.tip}>
-					<h4>请输入身份信息</h4>
+					<h2>请验证您信息, 一起狂欢!</h2>
 				</div>
 				<div className={styles.container}>
 					<div className={styles.flexItem}>
-						<label className={styles.customLabel + ' ' + styles.usernameLabel} htmlFor="username">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>							
+						<label className={styles.customLabel + ' ' + styles.usernameLabel} htmlFor="username">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>							
 						<input defaultValue="王超" id="username" className={styles.customInput} onChange={this.onChange} placeholder="姓名" />
 					</div>
 					<div className={styles.flexItem}>
-						<label className={styles.customLabel} htmlFor="idcard">身份证号码: </label>
+						<label className={styles.customLabel} htmlFor="idcard">身&nbsp;份&nbsp;证: </label>
 						<input defaultValue="421083199109165310" id="idcard" className={styles.customInput} onChange={this.onChange} type="number" placeholder="身份证号码" />
 					</div>
 					<div className={styles.okButton}>
-						<button disabled={this.state.loading} onClick={this.handleOkButtonClick}>{buttonMessage}</button>
+						<button disabled={this.props.loading} onClick={this.handleOkButtonClick}>{buttonMessage}</button>
 					</div>
 				</div>
-				<div>{JSON.stringify(this.state)}</div>
 			</div>
 		);
 	}

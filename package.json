@@ -12,7 +12,7 @@
   },
   "betterScripts": {
     "build": {
-      "command": "webpack --colors --progress --config webpack/webpack.config.js",
+      "command": "webpack --colors --progress --config webpack/webpack.prod.config.js",
       "env": {
         "NODE_ENV": "production"
       }
