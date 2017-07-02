@@ -154,7 +154,7 @@ router.use('*', (req, res) => {
 
 const getMySqlConnection = () => {
 	var connection = mysql.createConnection({
-	 	host     : 'localhost',
+	 	host     : '192.168.6.4',
 	 	user     : 'root',
 	 	password : 'alashan',
 	 	database : 'user',
@@ -166,7 +166,7 @@ const getMySqlConnection = () => {
 const createPool = () => {
 	var connection = mysql.createPool({
 		connectionLimit : 10,
-		host     : 'localhost',
+		host     : '192.168.6.4',
 		user     : 'root',
 		password : 'alashan',
 		database : 'user',
