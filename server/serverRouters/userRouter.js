@@ -157,7 +157,7 @@ const getMySqlConnection = () => {
 	 	host     : 'localhost',
 	 	user     : 'root',
 	 	password : 'alashan',
-	 	database : 'user',
+	 	database : 'beer',
 	 	charset  : 'utf8'
 	});
 	return connection;
@@ -169,7 +169,7 @@ const createPool = () => {
 		host     : 'localhost',
 		user     : 'root',
 		password : 'alashan',
-		database : 'user',
+		database : 'beer',
 		charset  : 'utf8'
 	});
 	return connection;
