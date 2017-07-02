@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const projectRootPath = path.resolve(__dirname, '..');
 const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 
 const config = {
 	devtool: 'inline-source-map',

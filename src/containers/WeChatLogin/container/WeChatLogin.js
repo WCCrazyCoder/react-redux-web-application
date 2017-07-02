@@ -5,7 +5,7 @@ export default class WeChatLogin extends React.Component {
 
 	componentWillMount() {
 		// window.location.href = projectConfig.weChatAuthorizationUrl;
-		window.location.href = 'http://localhost:3000?code=123';
+		window.location.href = 'http://192.168.12.114?code=123';
 	}
 	render() {
 		return (

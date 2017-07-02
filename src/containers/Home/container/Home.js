@@ -32,6 +32,7 @@ export default class Home extends React.Component {
 
 	_handleOkButtonClick(e) {
 		e.preventDefault();
+
 		if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.state.idcard)) {
 			window.alert('请输入正确身份证号码'); return;
 		}
@@ -62,6 +63,7 @@ export default class Home extends React.Component {
 		return (
 			<div className={styles.home}>
 				<div className={styles.tip}>
+					<h2>阿拉善首届啤酒节</h2>
 					<h2>请验证您信息, 一起狂欢!</h2>
 				</div>
 				<div className={styles.container}>

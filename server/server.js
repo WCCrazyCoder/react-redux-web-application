@@ -8,7 +8,7 @@ var webpackConfig = require('../webpack/webpack.config.js');
 var userRouter = require('./serverRouters/userRouter');
 
 const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 const compiler = webpack(webpackConfig);
 
 var app = new Express();
