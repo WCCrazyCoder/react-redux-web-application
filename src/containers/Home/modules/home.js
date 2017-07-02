@@ -30,7 +30,7 @@ function getUserInfoOf(name, cardno) {
 		const request = superagent.get(`http://192.168.6.4:3000/api/user/idcard`);
 		// request.query({ cardno });
 		// request.set('Authorization', 'APPCODE 00c180eae8664be9b7157b49281cb9d6');
-		request.end((error, {body}) => {
+		request.end((error, { body } = {}) => {
 			if (error) {
 				reject(body || error);
 			} else {
