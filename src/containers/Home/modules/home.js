@@ -27,7 +27,7 @@ const WECHAT_USERINFO_REJECTED = 'home/WECHAT_USERINFO_REJECTED';
 function getUserInfoOf(name, cardno) {
 	return new Promise((resolve, reject) => {
 		// const request = superagent.get('http://idcard.market.alicloudapi.com/lianzhuo/idcard');
-		const request = superagent.get(`http://192.168.12.114/api/user/idcard`);
+		const request = superagent.get(`http://192.168.6.4/api/user/idcard`);
 		// request.query({ cardno });
 		// request.set('Authorization', 'APPCODE 00c180eae8664be9b7157b49281cb9d6');
 		request.end((error, {body}) => {
@@ -53,7 +53,7 @@ export function register(username, cardno) {
 						const { openid, unionid, nickname, headimgurl } = getState().home.weChatInfo;
 						const simplyInfo = { openid, unionid, nickname, headimgurl };
 						const data = Object.assign({username, cardno}, matchInfo.data, simplyInfo);
-						return client.post('/user/register', { data })								
+						return client.post('/user/register', { data })
 					} else {
 						return Promise.resolve(matchInfo);
 					}
@@ -67,7 +67,7 @@ export function register(username, cardno) {
 }
 
 /**
- *	
+ *
  */
 export function getUserInfo(queryObject) {
 	return {
