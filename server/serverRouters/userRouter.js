@@ -45,6 +45,7 @@ router.get('/idcard', (req, res) => {
  */
 router.get('/wechat', (req, res) => {
 	if (req.query.code) {
+		console.log(req.query.code);
 		new Promise((resolve, reject) => {
 			const tokenUrl = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${projectConfig.appID}&secret=${projectConfig.appSecret}&code=${req.query.code}&grant_type=authorization_code`;
 			const request = superagent.get(tokenUrl);
