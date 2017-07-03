@@ -21,14 +21,14 @@
       "command": "node ./bin/server.js",
       "env": {
         "NODE_ENV": "production",
-        "PORT": 3000
+        "PORT": 80
       }
     },
     "start-dev": {
       "command": "node ./bin/server.js",
       "env": {
         "NODE_ENV": "development",
-        "PORT": 3000
+        "PORT": 80
       }
     }
   },
