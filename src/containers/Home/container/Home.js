@@ -27,7 +27,7 @@ export default class Home extends React.Component {
 		e.preventDefault();
 		this.setState({
 			[e.target.id]: e.target.value
-		});	
+		});
 	}
 
 	_handleOkButtonClick(e) {
@@ -68,12 +68,12 @@ export default class Home extends React.Component {
 				</div>
 				<div className={styles.container}>
 					<div className={styles.flexItem}>
-						<label className={styles.customLabel + ' ' + styles.usernameLabel} htmlFor="username">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>							
-						<input defaultValue="王超" id="username" className={styles.customInput} onChange={this.onChange} placeholder="姓名" />
+						<label className={styles.customLabel + ' ' + styles.usernameLabel} htmlFor="username">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>
+						<input id="username" className={styles.customInput} onChange={this.onChange} placeholder="姓名" />
 					</div>
 					<div className={styles.flexItem}>
 						<label className={styles.customLabel} htmlFor="idcard">身&nbsp;份&nbsp;证: </label>
-						<input defaultValue="421083199109165310" id="idcard" className={styles.customInput} onChange={this.onChange} type="number" placeholder="身份证号码" />
+						<input id="idcard" className={styles.customInput} onChange={this.onChange} type="number" placeholder="身份证号码" />
 					</div>
 					<div className={styles.okButton}>
 						<button disabled={this.props.loading} onClick={this.handleOkButtonClick}>{buttonMessage}</button>
