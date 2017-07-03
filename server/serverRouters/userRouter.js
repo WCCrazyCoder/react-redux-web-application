@@ -71,19 +71,19 @@ router.get('/wechat', (req, res) => {
 			})
 		})
 		.catch(e => {
-			const wechatInfo = {
-				"openid": `o6_bmasdasdsad6_L`,
-				"nickname": `维护世界和平`,
-				"sex":"1",
-				"province":"湖北省",
-				"city":"武汉市",
-				"country":"菏泽",
-				"headimgurl":"http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
-				"privilege":[ "PRIVILEGE1","PRIVILEGE2"],
-				"unionid": `2sgVt7hMZOPf`
-			}
-			res.json({code: 10000, message: 'success', data: {...wechatInfo}});
-			// res.json({code: 10009, message: '获取微信用户信息失败', data: {...e}});
+			// const wechatInfo = {
+			// 	"openid": `o6_bmasdasdsad6_L`,
+			// 	"nickname": `维护世界和平`,
+			// 	"sex":"1",
+			// 	"province":"湖北省",
+			// 	"city":"武汉市",
+			// 	"country":"菏泽",
+			// 	"headimgurl":"http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
+			// 	"privilege":[ "PRIVILEGE1","PRIVILEGE2"],
+			// 	"unionid": `2sgVt7hMZOPf`
+			// }
+			// res.json({code: 10000, message: 'success', data: {...wechatInfo}});
+			res.json({code: 10009, message: '获取微信用户信息失败', data: {...e}});
 		})
 	} else {
 		res.json({code: 10008, message: '缺少参数'});
