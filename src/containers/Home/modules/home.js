@@ -27,7 +27,7 @@ const WECHAT_USERINFO_REJECTED = 'home/WECHAT_USERINFO_REJECTED';
 function getUserInfoOf(name, cardno) {
 	return new Promise((resolve, reject) => {
 		// const request = superagent.get('http://idcard.market.alicloudapi.com/lianzhuo/idcard');
-		const request = superagent.get(`http://192.168.6.4:3000/api/user/idcard`);
+		const request = superagent.get(`http://47.94.90.161/api/user/idcard`);
 		// request.query({ cardno });
 		// request.set('Authorization', 'APPCODE 00c180eae8664be9b7157b49281cb9d6');
 		request.end((error, { body } = {}) => {
