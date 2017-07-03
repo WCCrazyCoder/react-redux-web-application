@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { register, getUserInfo, getWeChatUserInfo } from '../modules/home';
+import projectConfig from '../../../../project.config';
 
 @connect(
 	state => ({
@@ -42,6 +43,10 @@ export default class Home extends React.Component {
 	}
 
 	componentWillMount() {
+		location.href = projectConfig.weChatAuthorizationUrl;
+	}
+
+	componentDidMount() {
 		const getQueryValueOf = key => decodeURIComponent(this.props.location.search.replace(new RegExp('^(?:.*[&\\?]' + escape(key).replace(/[.+*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'))
 		const code = getQueryValueOf('code');
 		if (code) {

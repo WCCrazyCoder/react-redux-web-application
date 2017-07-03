@@ -28,17 +28,17 @@ router.get('/idcard', (req, res) => {
 	connection.end();
 })
 
-router.get('/delete', (req, res) => {
-	var connection = getMySqlConnection();
-	const sql = `delete from user`;
-	connection.query(sql, function(error, results, fileds) {
-		if (error) {
-			console.log(error);
-		}
-		res.send({code: '10000', message: 'success'});
-	});
-	connection.end();
-});
+// router.get('/delete', (req, res) => {
+// 	var connection = getMySqlConnection();
+// 	const sql = `delete from user`;
+// 	connection.query(sql, function(error, results, fileds) {
+// 		if (error) {
+// 			console.log(error);
+// 		}
+// 		res.send({code: '10000', message: 'success'});
+// 	});
+// 	connection.end();
+// });
 
 /**
  *	根据code获取微信信息
@@ -77,7 +77,7 @@ router.get('/wechat', (req, res) => {
 				"sex":"1",
 				"province":"湖北省",
 				"city":"武汉市",
-				"country":"燕窝镇",
+				"country":"菏泽",
 				"headimgurl":"http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
 				"privilege":[ "PRIVILEGE1","PRIVILEGE2"],
 				"unionid": `2sgVt7hMZOPf`
