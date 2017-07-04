@@ -67,7 +67,7 @@ export function register(username, cardno) {
 }
 
 /**
- *
+ *	根据查询字符串查询用户信息
  */
 export function getUserInfo(queryObject) {
 	return {

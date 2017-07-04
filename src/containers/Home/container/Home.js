@@ -39,13 +39,15 @@ export default class Home extends React.Component {
 		}
 		if(this.state.username.length > 0 && this.state.idcard.length > 0) {
 			this.props.register(this.state.username, this.state.idcard);
+		} else {
+			window.alert('请输入正确的姓名和身份证信息!');
 		}
 	}
 
 	componentWillMount() {
 		const getQueryValueOf = key => decodeURIComponent(this.props.location.search.replace(new RegExp('^(?:.*[&\\?]' + escape(key).replace(/[.+*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'))
 		const code = getQueryValueOf('code');
-		if (code) {
+		if (!this.props.weChatInfo && code) {
 			this.props.getWeChatUserInfo(code);
 		} else {
 			location.href = projectConfig.weChatAuthorizationUrl;
