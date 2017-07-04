@@ -42,15 +42,13 @@ export default class Home extends React.Component {
 		}
 	}
 
-	componentWillMount() {
-		location.href = projectConfig.weChatAuthorizationUrl;
-	}
-
 	componentDidMount() {
 		const getQueryValueOf = key => decodeURIComponent(this.props.location.search.replace(new RegExp('^(?:.*[&\\?]' + escape(key).replace(/[.+*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'))
 		const code = getQueryValueOf('code');
 		if (code) {
 			this.props.getWeChatUserInfo(code);
+		} else {
+			location.href = projectConfig.weChatAuthorizationUrl;
 		}
 	}
 
