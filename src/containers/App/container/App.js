@@ -16,7 +16,7 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<div style={style} />
-				<div style={{ height: '100%' }}>
+				<div>
 					{ this.props.children }
 				</div>
 			</div>
