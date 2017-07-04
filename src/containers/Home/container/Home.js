@@ -65,7 +65,7 @@ export default class Home extends React.Component {
 	render() {
 		const styles = require('./Home.scss');
 		const buttonMessage = this.props.registerLoading ? '发送中...' : '确定';
-		const style = { backgroundColor: 'white' };
+		const style = { backgroundColor: this.props.weChatInfo ? 'transparent' : 'white' };
 		return (
 			<div style={style} className={styles.home}>
 				{this.props.weChatInfo &&

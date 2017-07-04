@@ -102,8 +102,8 @@ const ACTION_HANDLERS = {
 
 const initialState = {
 	loading: false,
-	user: {},
-	weChatInfo: {}
+	user: null,
+	weChatInfo: null
 };
 
 export default function home(state=initialState, action) {
