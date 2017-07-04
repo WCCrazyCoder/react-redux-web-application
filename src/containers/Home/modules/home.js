@@ -32,6 +32,7 @@ function getUserInfoOf(name, cardno) {
 		request.set('Authorization', 'APPCODE 2434391486e746138d67d704f1942a12');
 		request.end((error, { body } = {}) => {
 			if (error) {
+				window.alert('身份认证失败');
 				reject(body || error);
 			} else {
 				resolve(body)
