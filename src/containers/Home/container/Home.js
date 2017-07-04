@@ -42,7 +42,7 @@ export default class Home extends React.Component {
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		const getQueryValueOf = key => decodeURIComponent(this.props.location.search.replace(new RegExp('^(?:.*[&\\?]' + escape(key).replace(/[.+*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'))
 		const code = getQueryValueOf('code');
 		if (code) {
