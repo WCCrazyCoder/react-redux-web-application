@@ -52,6 +52,7 @@ router.get('/wechat', (req, res) => {
 			request.end((err, res) => {
 				const body = JSON.parse(res.text);
 				if (err || Object.prototype.hasOwnProperty.call(body, 'errcode')) {
+					console.log(body || err);
 					reject(body || err);
 				} else {
 					resolve(body);
