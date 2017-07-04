@@ -26,10 +26,10 @@ const WECHAT_USERINFO_REJECTED = 'home/WECHAT_USERINFO_REJECTED';
  */
 function getUserInfoOf(name, cardno) {
 	return new Promise((resolve, reject) => {
-		// const request = superagent.get('http://idcard.market.alicloudapi.com/lianzhuo/idcard');
-		const request = superagent.get(`http://47.94.90.161/api/user/idcard`);
-		// request.query({ cardno });
-		// request.set('Authorization', 'APPCODE 00c180eae8664be9b7157b49281cb9d6');
+		const request = superagent.get('http://idcard.market.alicloudapi.com/lianzhuo/idcard');
+		// const request = superagent.get(`http://47.94.90.161/api/user/idcard`);
+		request.query({ name, cardno });
+		request.set('Authorization', 'APPCODE 2434391486e746138d67d704f1942a12');
 		request.end((error, { body } = {}) => {
 			if (error) {
 				reject(body || error);
