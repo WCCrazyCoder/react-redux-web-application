@@ -63,12 +63,12 @@ router.get('/wechat', (req, res) => {
 			console.log(tokenInfo);
 			const userinfoUrl = `https://api.weixin.qq.com/sns/userinfo?access_token=${tokenInfo.access_token}&openid=${tokenInfo.openid}&lang=zh_CN`;
 			const request = superagent.get(userinfoUrl);
-			request.end((err, res) => {
-				const body = JSON.parse(res.text);
+			request.end((err, response) => {
+				const body = JSON.parse(response.text);
 				if (err || Object.prototype.hasOwnProperty.call(body, 'errcode')) {
-					res.json({code: 10009, message: '根据token获取微信信息失败', data: {...body}})
+					response.json({code: 10009, message: '根据token获取微信信息失败', data: {...body}})
 				} else {
-					res.json({code: 10000, message: 'success', data: {...body}});
+					response.json({code: 10000, message: 'success', data: {...body}});
 				}
 			})
 		})
