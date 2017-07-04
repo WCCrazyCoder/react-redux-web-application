@@ -45,12 +45,12 @@ router.get('/idcard', (req, res) => {
  */
 router.get('/wechat', (req, res) => {
 	if (req.query.code) {
-		console.log(req.query.code);
+		console.log('wechat code:  ', req.query.code);
 		new Promise((resolve, reject) => {
 			const tokenUrl = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${projectConfig.appID}&secret=${projectConfig.appSecret}&code=${req.query.code}&grant_type=authorization_code`;
 			const request = superagent.get(tokenUrl);
-			request.end((err, res) => {
-				const body = JSON.parse(res.text);
+			request.end((err, response) => {
+				const body = JSON.parse(response.text);
 				if (err || Object.prototype.hasOwnProperty.call(body, 'errcode')) {
 					console.log(body || err);
 					reject(body || err);
@@ -66,9 +66,9 @@ router.get('/wechat', (req, res) => {
 			request.end((err, response) => {
 				const body = JSON.parse(response.text);
 				if (err || Object.prototype.hasOwnProperty.call(body, 'errcode')) {
-					response.json({code: 10009, message: '根据token获取微信信息失败', data: {...body}})
+					res.json({code: 10009, message: '根据token获取微信信息失败', data: {...body}})
 				} else {
-					response.json({code: 10000, message: 'success', data: {...body}});
+					res.json({code: 10000, message: 'success', data: {...body}});
 				}
 			})
 		})
